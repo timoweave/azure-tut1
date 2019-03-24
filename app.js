@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const address = require('address');
 const uuid = require('uuid');
@@ -37,13 +38,17 @@ app.get('/address', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.json({
         [config.xApiUuid]: req.headers[config.xApiUuid],
         time: new Date(),
         message: 'hello world!',
         ip: address.ip()
     });
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.listen(config.port, () => {
