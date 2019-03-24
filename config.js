@@ -1,4 +1,4 @@
 const config = {
-    port: process.env.PORT | 3000,
+    port: process.env.PORT | 80,
 };
 module.exports = config;
