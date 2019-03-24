@@ -1,15 +1,20 @@
 const express = require('express');
-const morgan = require('morgan');
 const address = require('address');
 const uuid = require('uuid');
+const body_parser = require('body-parser');
+const morgan_body = require('morgan-body');
+
 const config = require('./config');
 
 const app = express();
 
-app.use(morgan('combined'));
+app.use(body_parser.json());
+morgan_body(app);
 
 app.use((req, res, next) => {
-    res.setHeader('X-API-UUID', uuid());
+    const id = uuid();
+    req.headers[config.xApiUuid] = id
+    res.setHeader(config.xApiUuid, id);
     next();
 });
 
@@ -28,6 +33,15 @@ app.get('/health_check', (req, res) => {
 app.get('/address', (req, res) => {
     res.json({
         time: new Date(),
+        ip: address.ip()
+    });
+});
+
+app.get('/', (req, res) => {
+    res.json({
+        [config.xApiUuid]: req.headers[config.xApiUuid],
+        time: new Date(),
+        message: 'hello world!',
         ip: address.ip()
     });
 });

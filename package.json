@@ -11,8 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "address": "1.0.3",
+    "body-parser": "^1.18.3",
     "express": "4.16.4",
+    "express-mung": "0.5.1",
     "morgan": "1.9.1",
+    "morgan-body": "2.4.5",
     "uuid": "3.3.2"
   }
 }
